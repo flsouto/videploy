@@ -1,0 +1,7 @@
+server localhost port XXXX
+index.php
+    -> spawn pages + inject JS
+        ex: window.open(youtube..., _blank)
+           +cmd('php build-js.php yt-uploader.js videploy')
+cmd.php
+    -> run command
