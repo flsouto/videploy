@@ -1,14 +1,18 @@
 document.body.style.backgroundColor = 'black';
 
 async function yt_upload(){
-    const yt = window.open("https://youtube.com/","_blank");
-    await open_console();
-    await copy_script_to_clipboard("yt-uploader.js");
-    await paste_and_enter();
+    const url = "https://studio.youtube.com/channel/__YTCHANNEL__/videos/upload?d=ud";
+    const yt = window.open(url,"_blank");
+    await cmd()
+        .open_console()
+        .copy_script_to_clipboard("yt-uploader.js")
+        .paste()
+        .enter()
+        .exec()
 }
 
 async function main(){
-    await open_console();
+    await cmd().open_console().exec();
     await yt_upload();
 }
 

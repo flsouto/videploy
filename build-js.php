@@ -11,5 +11,12 @@ echo file_get_contents(__DIR__."/utils.js");
 echo file_get_contents($file);
 $js = ob_get_clean();
 $port = file_get_contents(__DIR__."/port");
-$js = str_replace("__BASEURL__","localhost:$port", $js);
+$conf = require('config.php');
+$conf['BASEURL'] = "http://localhost:$port/";
+foreach($conf as $k => $v){
+    $js = str_replace("__{$k}__",$v, $js);
+}
+
 echo $js;
+
+
