@@ -1,3 +1,12 @@
+TODO
+yt-uploader:
+    - open correct url using channel id extracted from __CHANNEL__
+    - api to process queue (next => add to stage)
+    - pick mp4 file from stage folder
+    - load metadata from stage folder
+    - start filling the form with metadata (title, keywords, desc, lang, etc...)
+    
+DONE
 server localhost port XXXX
 index.php
     -> spawn pages + inject JS
