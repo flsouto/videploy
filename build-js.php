@@ -7,6 +7,9 @@ if(empty($file)||!file_exists($file)){
 }
 
 ob_start();
+if(file_exists($f=__DIR__."/vdata.js")){
+    echo file_get_contents($f);
+}
 echo file_get_contents(__DIR__."/utils.js");
 echo file_get_contents($file);
 $js = ob_get_clean();

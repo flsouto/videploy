@@ -25,6 +25,8 @@ window.sleep = (seconds) => {
 
 window.cmd = () => {
     const chain = [];
+    const xclip = "xclip -sel clip > /dev/null";
+
     const self = {
         chain,
         merge(cmd){
@@ -32,27 +34,35 @@ window.cmd = () => {
             return self;
         },
         sleep(seconds){
-            chain.push(`sleep ${seconds}`);
-            return self
+            return self.add(`sleep ${seconds}`);
         },
         paste(){
-            chain.push("xdotool key ctrl+v");
-            return self;
+            return self.add("xdotool key ctrl+v");
         },
         enter(){
-            chain.push("xdotool key enter");
-            return self;
+            return self.add("xdotool key enter");
         },
         open_console(){
-            chain.push("xdotool key ctrl+shift+k");
-            return self.sleep(2);
+            return self.add("xdotool key ctrl+shift+k").sleep(2);
+        },
+        copy_string_to_clipboard(text){
+            return self.add(`echo '${text}' | ${xclip}`);
         },
         copy_script_to_clipboard(script){
-            chain.push("php build-js.php "+script+" | xclip -sel clip > /dev/null");
+            return self.add(`php build-js.php ${script} | ${xclip}`);
+        },
+        copy_vdata_to_clipboard(key){
+            return self.add(`php vdata.php ${key} | ${xclip}`);
+        },
+        add(str){
+            chain.push(str);
             return self;
         },
+        toString(){
+            return chain.join(" && ");
+        },
         async exec(){
-            return await window.exec(chain.join(" && "));
+            return await window.exec(String(self))
         }
     };
     return self;
