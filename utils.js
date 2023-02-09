@@ -67,3 +67,13 @@ window.cmd = () => {
     };
     return self;
 }
+
+window.wait_for = async(selector, wait=3, attempts=10) => {
+    el = null;
+    for(let i=0; i<attempts; i++){
+        el = document.querySelector(selector);
+        if(el) return el;
+        else await sleep(wait);
+    }
+    console.error(`wait_for ${selector} never got an element after ${attempts} attempts`);
+}
