@@ -43,6 +43,11 @@ main = async() => {
         not_kids_radio = await wait_for("[name=VIDEO_MADE_FOR_KIDS_NOT_MFK] #radioContainer");
         not_kids_radio.click();
 
+        // head to step#3 and check public
+        (await wait_for('#step-badge-3')).click();
+        (await wait_for("[name=PUBLIC]")).click();
+        (await wait_for("#done-button")).click();
+
         // LANG (todo)
         // find "MOSTRAR MAIS" + Dropdown Icon (click) THEN:
         // [...document.querySelectorAll('.item-text')].filter(it => it.innerHTML == 'Aramaico')[0].click()
