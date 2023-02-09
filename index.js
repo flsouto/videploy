@@ -27,7 +27,7 @@ async function main(){
         page.close();
     };
     await cmd().open_console().exec();
-    const stage = true; // todo
+    const stage = await exec("ls queue");
     if(!stage){
         await exec("php next.php");
         await yt_upload();
