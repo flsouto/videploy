@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'YTCHANNEL' => 'UCOJZp425HSWUGPjod2OIbsA',
-    'USER' => 'codcast'
+    'YTCHANNEL' => 'UCj65g8vQX0itfJx25ZZL3qA',
+    'USER' => 'fabio'
 ];

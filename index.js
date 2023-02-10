@@ -12,14 +12,21 @@ async function open_page(url, inject_script){
         .exec()
 }
 
-async function yt_upload(){
-    const url = "https://studio.youtube.com/channel/__YTCHANNEL__/videos/upload?d=ud";
-    await open_page(url, "yt-uploader.js");
-}
-
-async function yt_check(){
-    const url = "https://studio.youtube.com/channel/UCOJZp425HSWUGPjod2OIbsA/videos/upload";
-    await open_page(url, "yt-checker.js");
+const targets = {
+    youtube: {
+        async upload(){
+            const url = "https://studio.youtube.com/channel/__YTCHANNEL__/videos/upload?d=ud";
+            await open_page(url, "yt-uploader.js");
+        },
+        async check(){
+            const url = "https://studio.youtube.com/channel/__YTCHANNEL__/videos/upload";
+            await open_page(url, "yt-checker.js");
+        }
+    },
+    instagram: {
+        async upload(){},
+        async check(){}
+    }
 }
 
 async function main(){
@@ -27,13 +34,18 @@ async function main(){
         page.close();
     };
     await cmd().open_console().exec();
-    const stage = await exec("ls queue");
+    const stage = await exec("ls stage");
     if(!stage){
-        await exec("php next.php");
-        await yt_upload();
-        setTimeout(main, 60 * 5 * 1000);
+        const target = await exec("php next.php");
+        if(target){
+            await targets[target].upload();
+            setTimeout(main, 60 * 2 * 1000);
+        } else {
+            alert("No more targets!");
+        }
     } else {
-        await yt_check();
+        const target = await exec("php vdata.php target");
+        await targets[target].check();
         setTimeout(main, 30 * 1000);
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
-$port = $argv[1];
+$port = $argv[1]??null;
 if(empty($port)||!ctype_digit($port)){
-    die("Usage: cmd <PORT>");
+    die("Usage: cmd <PORT>\n");
 }
 
 file_put_contents(__DIR__."/port", $port);
